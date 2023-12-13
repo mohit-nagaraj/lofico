@@ -1,0 +1,49 @@
+.player{
+    min-height: 13vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: rgba(177, 177, 177, 0.306);
+    backdrop-filter: blur(16px);
+    .play-control{
+      display: flex;
+      gap: 30px;
+    }
+    .time-control {
+        height: 40px;
+        width: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        input {
+          width: 400px;
+          padding: 1rem 0rem;
+          background: transparent;
+          cursor: pointer;
+          @media (max-width: 750px) {
+            width: 200px;
+          }
+        }
+        p {
+          font-family: 'Poppins', sans-serif;
+          padding: 1rem;
+        }
+      }
+       
+}
+
+
+.player .light{
+  color: rgb(0, 0, 0);
+  fill: black;
+}
+
+.player .dark{
+  color: #fafafa;
+  fill: #fafafa;
+}
+
+

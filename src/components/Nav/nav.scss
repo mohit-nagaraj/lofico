@@ -1,0 +1,81 @@
+.nav {
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  .nav_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px 10px 20px;
+    height: 40px;
+    .nav_container_logo {
+      font-family: "Borel", cursive;
+      user-select: none;
+        margin-top: 10px;
+      background: rgba(206, 5, 156, 0.306);
+      backdrop-filter: blur(16px);
+      border-radius: 30px;
+      padding-left: 20px;
+      padding-right: 20px;
+      h1 {
+        margin: 0;
+        padding-top: 10px;
+        margin-top: 5px;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+    .nav_container_links ul {
+      display: flex;
+      gap: 10px;
+      list-style-type: none;
+      margin: 0;
+      li .light{
+        background: rgba(177, 177, 177, 0.306);
+      backdrop-filter: blur(16px);
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      }
+
+      li .dark{
+        background: rgba(0, 0, 0, 0.207);
+        backdrop-filter: blur(16px);
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+}
+
+.nav .light{
+  color: white;
+  fill: white;
+}
+
+.nav .dark{
+  color: black;
+  fill: black;
+}
+
+.extension{
+  margin-top: 10px;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  right: 40px;
+  transition: all 0.5s ease-in;
+  gap: 10px;
+  li{
+  background: rgba(177, 177, 177, 0.306);
+  backdrop-filter: blur(16px);
+  padding: 10px;
+  border-radius: 50%;
+  }
+  .noNavExp{
+    display: none;
+  }
+}
