@@ -3,7 +3,7 @@ import "./home.scss";
 import Player from "../components/Player/Player";
 import Nav from "../components/Nav/Nav";
 import data from "../playlist";
-
+import Draggable from "../components/Draggable/Draggable";
 const Home = () => {
 
   const [currentTheme, setCurrentTheme] = useState("dark");
@@ -48,6 +48,11 @@ const Home = () => {
   return (
     <div className="home">
       <Nav setCurrentTheme={setCurrentTheme} currentTheme={currentTheme} />
+      <Draggable initialPos={{ x: 100, y: 100 }}>
+        <div style={{ width: '100px', height: '100px', background: 'lightblue', cursor: 'move' }}>
+          Drag me!
+        </div>
+      </Draggable>
       <Player
         currentTheme={currentTheme}
         audioRef={audioRef}
