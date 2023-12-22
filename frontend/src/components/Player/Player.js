@@ -12,6 +12,7 @@ const Player = ({
   songs,
   setSongInfo,
 }) => {
+  //for controlling play/pause button
   const playSongHandler = () => {
     if (isPlaying) {
       audioRef.current.pause();
@@ -19,15 +20,25 @@ const Player = ({
       audioRef.current.play();
     }
   };
+
+  //fnc to convert time from seconds to minutes, human readable format
   const getTime = (time) => {
+    //Math.floor(time / 60) gives minutes, ("0" + Math.floor(time % 60)).slice(-2) gives seconds
+    //slice(-2) gives last 2 digits of the string
+    //eg: 1:2 => 1:02
     return (
       Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
     );
   };
+
+  //fnc to update the time of the song being played, from the slider
   const dragHandler = (e) => {
     audioRef.current.currentTime = e.target.value;
+    //update the state of songInfo, so that the slider moves accordingly
     setSongInfo({ ...songInfo, currentTime: e.target.value });
   };
+
+  //fnc to find current song being played, and play next song in playlist
   const skipTrackHandler = async (direction) => {
     let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
     if (direction === "skip-forward") {
@@ -46,9 +57,13 @@ const Player = ({
     if (isPlaying) audioRef.current.play();
     //playAudio(isPlaying, audioRef);
   };
+
+  //add the styles to the slider, to animate it
   const trackAnim = {
     transform: `translateX(${songInfo.animationPercentage}%)`,
   };
+
+  
   return (
     <div
       className="player"
