@@ -1,0 +1,25 @@
+.timer {
+  .window-size {
+    margin: auto;
+    width: 260px;
+    height: 360px;
+    border-radius: 10px;
+    padding: 10px;
+    transition: outline 0.2s ease-in-out;
+    backdrop-filter: blur(3px);
+    border: none;
+    outline: 1px solid #00000014;
+    &:hover {
+      outline: 1px solid #000000b3;
+      border: none;
+    }
+  }
+  .dark {
+    background-color: #2d2d2deb;
+    color: #fafafa;
+  }
+  .light {
+    background-color: #fafafabc;
+    color: #2d2d2d;
+  }
+}

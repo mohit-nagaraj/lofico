@@ -3,7 +3,12 @@ import "./home.scss";
 import Player from "../components/Player/Player";
 import Nav from "../components/Nav/Nav";
 import data from "../playlist";
-import Draggable from "../components/Draggable/Draggable";
+import Timer from "./subpages/Timer";
+import Notes from "./subpages/Notes";
+import Chat from "./subpages/Chat";
+import Calendar from "./subpages/Calendar";
+import Scenery from "./subpages/Scenery";
+
 const Home = () => {
 
   const [currentTheme, setCurrentTheme] = useState("dark");
@@ -48,11 +53,11 @@ const Home = () => {
   return (
     <div className="home">
       <Nav setCurrentTheme={setCurrentTheme} currentTheme={currentTheme} />
-      <Draggable initialPos={{ x: 100, y: 100 }}>
-        <div style={{ width: '100px', height: '100px', background: 'lightblue', cursor: 'move' }}>
-          Drag me!
-        </div>
-      </Draggable>
+      <Scenery currentTheme={currentTheme}/>
+      <Timer currentTheme={currentTheme}/>
+      <Notes currentTheme={currentTheme}/>
+      <Chat currentTheme={currentTheme}/>
+      <Calendar currentTheme={currentTheme}/>
       <Player
         currentTheme={currentTheme}
         audioRef={audioRef}
