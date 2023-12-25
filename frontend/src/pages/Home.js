@@ -16,6 +16,13 @@ const Home = () => {
   const [currentSong, setCurrentSong] = useState(songs[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
+  const [currentScenery, setCurrentScenery] = useState(0);
+  const sceneryInfo = [
+    '/underwater',
+    '/inside-day',
+    '/inside-night',
+    '/space',
+  ];
 
   //keep track of song information, used in slider(Player.js)
   const [songInfo, setSongInfo] = useState({
@@ -52,8 +59,11 @@ const Home = () => {
   };
   return (
     <div className="home">
+      <video autoPlay loop muted id="video-player">
+        <source src={`/videos${sceneryInfo[currentScenery]}.mp4`} type="video/mp4" />
+      </video>
       <Nav setCurrentTheme={setCurrentTheme} currentTheme={currentTheme} />
-      <Scenery currentTheme={currentTheme}/>
+      <Scenery currentTheme={currentTheme} setCurrentScenery={setCurrentScenery} sceneryInfo={sceneryInfo}/>
       <Timer currentTheme={currentTheme}/>
       <Notes currentTheme={currentTheme}/>
       <Chat currentTheme={currentTheme}/>

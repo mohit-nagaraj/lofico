@@ -19,10 +19,20 @@
       padding-left: 20px;
       padding-right: 20px;
       h1 {
+        position: relative;
         margin: 0;
         padding-top: 10px;
         margin-top: 5px;
         transition: all 0.2s ease-in-out;
+        z-index: 1;
+      }
+      img{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.6;
+        z-index: 0;
       }
     }
     .nav_container_links ul {
@@ -97,13 +107,13 @@
 }
 
 .nav .light{
-  color: white;
-  fill: white;
+  color: black;
+  fill: black;
 }
 
 .nav .dark{
-  color: black;
-  fill: black;
+  color: white;
+  fill: white;
 }
 
 .extension{

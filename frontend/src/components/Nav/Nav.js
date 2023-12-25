@@ -9,6 +9,7 @@ const Nav = ({ setCurrentTheme, currentTheme }) => {
       <div className="nav_container">
         <div className="nav_container_logo">
           <h1 className={currentTheme}>LofiCo</h1>
+          <img src="./logo.png" alt="logo" height={50}/>
         </div>
         <div className="nav_container_links">
           <ul>
