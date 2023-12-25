@@ -59,9 +59,7 @@ const Home = () => {
   };
   return (
     <div className="home">
-      <video autoPlay loop muted id="video-player">
-        <source src={`/videos${sceneryInfo[currentScenery]}.mp4`} type="video/mp4" />
-      </video>
+      <video autoPlay loop muted id="video-player" src={`/videos${sceneryInfo[currentScenery]}.mp4`} type="video/mp4" />
       <Nav setCurrentTheme={setCurrentTheme} currentTheme={currentTheme} />
       <Scenery currentTheme={currentTheme} setCurrentScenery={setCurrentScenery} sceneryInfo={sceneryInfo}/>
       <Timer currentTheme={currentTheme}/>
