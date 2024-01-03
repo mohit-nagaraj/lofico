@@ -1,4 +1,18 @@
 .scenery{
+    .active{
+      position: relative;
+      background-color:#ff10ef85;
+      padding: 2px;
+      left: -2px;
+      top: -2px;
+    }
+    .inactive{
+      position: relative;
+      background-color:#ff10ef00;
+      padding: 2px;
+      left: -2px;
+      top: -2px;
+    }
     .window-size {
         margin: auto;
         width: 200px;
@@ -15,16 +29,38 @@
         }
 
         .scenery-image{ 
-          margin-top: 10px;
+          margin-top: 2px;
           display: flex;
           flex-direction: column;
+          .scenery-image-container{
+            margin: 0;
+            margin-top: 5px;
+            position: relative;
+            cursor: pointer;
+            .scenery-image-text{
+              position: absolute;
+              bottom: 7.5px;
+              left: 0;
+              font-size: 0.8rem;
+              font-family: 'Poppins', sans-serif;
+              font-weight: 100;
+              width: 195px;
+              padding-top: 2px;
+              background: linear-gradient(180deg, #00000000, #000000);
+              color: #fafafa;
+              padding-left: 5px;
+              border-bottom-left-radius: 8px;
+              border-bottom-right-radius: 8px;
+            }
           img{
-          margin-top: 10px;
+            transition: all 0.1s ease-in-out;
+          margin: 0px;
           width: 200px;
           height: 100px;
           object-fit: cover;
           border-radius: 10px;
         }
+      }
         }
       }
       .dark {
