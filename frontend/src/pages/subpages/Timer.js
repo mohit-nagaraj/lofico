@@ -4,8 +4,10 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import "./timer.scss";
 
 const Timer = ({ currentTheme, currentSong }) => {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [currentColor, setCurrentColor] = useState(currentSong.color[0]);
+  const [inputTime, setInputTime] = useState(30);
+  const [displayInput, setDisplayInput] = useState(true);
   const togglePlaying = () => {
     setIsPlaying(!isPlaying);
   };
@@ -22,6 +24,7 @@ const Timer = ({ currentTheme, currentSong }) => {
               top: "10px",
               opacity: 0.8,
               cursor: "pointer",
+              userSelect: "none",
             }}
             onClick={(e) => {
               document.querySelector(".timer").style.display = "none";
@@ -30,14 +33,146 @@ const Timer = ({ currentTheme, currentSong }) => {
             <img src="./close.png" alt="" height={15} width={15} />
           </div>
           {/* Timer window to be implemented */}
-          <div className="time-component">
+          {!displayInput ? "" : "Timer"}
+          <div
+            className={"input-component " + (displayInput ? "disp" : "Ndisp")}
+          >
+            <div className="preset-buttons">
+              <button
+                className={currentTheme}
+                onClick={(e) => {
+                  setInputTime(300);
+                  setDisplayInput(!displayInput);
+                  setIsPlaying(!isPlaying);
+                }}
+              >
+                5 mins
+              </button>
+              <button
+                className={currentTheme}
+                onClick={(e) => {
+                  setInputTime(600);
+                  setDisplayInput(!displayInput);
+                  setIsPlaying(!isPlaying);
+                }}
+              >
+                10 mins
+              </button>
+              <button
+                className={currentTheme}
+                onClick={(e) => {
+                  setInputTime(900);
+                  setDisplayInput(!displayInput);
+                  setIsPlaying(!isPlaying);
+                }}
+              >
+                15 mins
+              </button>
+              <button
+                className={currentTheme}
+                onClick={(e) => {
+                  setInputTime(1800);
+                  setDisplayInput(!displayInput);
+                  setIsPlaying(!isPlaying);
+                }}
+              >
+                30 mins
+              </button>
+              <button
+                className={currentTheme}
+                onClick={(e) => {
+                  setInputTime(3600);
+                  setDisplayInput(!displayInput);
+                  setIsPlaying(!isPlaying);
+                }}
+              >
+                1 hour
+              </button>
+              <button
+                className={currentTheme}
+                onClick={(e) => {
+                  setInputTime(10800);
+                  setDisplayInput(!displayInput);
+                  setIsPlaying(!isPlaying);
+                }}
+              >
+                3 hours
+              </button>
+            </div>
+          </div>
+          <div
+            className={"time-component " + (!displayInput ? "disp" : "Ndisp")}
+          >
+            <button
+              className={"back-handler " + currentTheme}
+              onClick={(e) => {
+                setDisplayInput(!displayInput);
+                setIsPlaying(!isPlaying);
+                setKey((prevKey) => prevKey + 1);
+              }}
+            >
+              <svg
+                width="20px"
+                height="20px"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g data-name="Layer 2" id="Layer_2">
+                  <g
+                    data-name="E421, Back, buttons, multimedia, play, stop"
+                    id="E421_Back_buttons_multimedia_play_stop"
+                  >
+                    <circle
+                      class="cls-1"
+                      cx="256"
+                      cy="256"
+                      r="246"
+                      style={{
+                        fill: "none",
+                        stroke: currentTheme === "dark" ? "#fafafa" : "#000000",
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round",
+                        strokeWidth: "35px",
+                      }}
+                    />
+
+                    <line
+                      class="cls-1"
+                      x1="352.26"
+                      x2="170.43"
+                      y1="256"
+                      y2="256"
+                      style={{
+                        fill: "none",
+                        stroke: currentTheme === "dark" ? "#fafafa" : "#000000",
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round",
+                        strokeWidth: "35px",
+                      }}
+                    />
+
+                    <polyline
+                      class="cls-1"
+                      style={{
+                        fill: "none",
+                        stroke: currentTheme === "dark" ? "#fafafa" : "#000000",
+                        strokeLinecap: "round",
+                        strokeLinejoin: "round",
+                        strokeWidth: "35px",
+                      }}
+                      points="223.91 202.52 170.44 256 223.91 309.48"
+                    />
+                  </g>
+                </g>
+              </svg>
+            </button>
             <CountdownCircleTimer
               isPlaying={isPlaying}
               key={key}
-              duration={70}
+              duration={inputTime}
               rotation="counterclockwise"
               colors={currentSong.color}
-              colorsTime={[70, 0]}
+              colorsTime={[inputTime, 0]}
               trailColor={currentTheme !== "dark" ? "#515151" : "#fafafabc"}
             >
               {({ remainingTime, color }) => {
@@ -63,9 +198,13 @@ const Timer = ({ currentTheme, currentSong }) => {
                 } else {
                   strseconds = seconds;
                 }
-                return `${hours !== 0 ? strhours + ":" : ""}${
-                  minutes !== 0 ? strminutes + ":" : ""
-                }${strseconds}`;
+                return (
+                  <div className="timer-text">
+                    {hours !== 0 ? strhours + ":" : ""}
+                    {minutes !== 0 || (remainingTime>=60&&remainingTime%60===0) ? strminutes + ":" : ""}
+                    {strseconds}
+                  </div>
+                );
               }}
             </CountdownCircleTimer>
             <div className="timer-buttons">
@@ -81,7 +220,12 @@ const Timer = ({ currentTheme, currentSong }) => {
                     width="24"
                     viewBox="0 0 320 512"
                   >
-                    <path d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z" />
+                    <path
+                      style={{
+                        fill: currentTheme !== "dark" ? "#fafafadd" : "#000000dd  ",
+                      }}
+                      d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"
+                    />
                   </svg>
                 ) : (
                   <svg
@@ -90,15 +234,36 @@ const Timer = ({ currentTheme, currentSong }) => {
                     width="24"
                     viewBox="0 0 384 512"
                   >
-                    <path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z" />
+                    <path
+                      style={{
+                        fill: currentTheme !== "dark" ? "#fafafadd" : "#000000dd",
+                      }}
+                      d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
+                    />
                   </svg>
                 )}
               </button>
-              <button onClick={() => setKey((prevKey) => prevKey + 1)} style={{ backgroundColor: currentColor }}>
-              <svg height="24"
-                    width="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M5 13C5 16.866 8.13401 20 12 20C15.866 20 19 16.866 19 13C19 9.13401 15.866 6 12 6H7M7 6L10 3M7 6L10 9" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+              <button
+                onClick={() => setKey((prevKey) => prevKey + 1)}
+                style={{ backgroundColor: currentColor }}
+              >
+                <svg
+                  height="24"
+                  width="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 13C5 16.866 8.13401 20 12 20C15.866 20 19 16.866 19 13C19 9.13401 15.866 6 12 6H7M7 6L10 3M7 6L10 9"
+                    style={{
+                      stroke: currentTheme !== "dark" ? "#fafafadd" : "#000000dd",
+                    }}
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
               </button>
             </div>
           </div>

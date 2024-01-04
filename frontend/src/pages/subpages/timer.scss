@@ -1,6 +1,42 @@
 .timer {
   .window-size {
+    .input-component{
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      .preset-buttons{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        width: 100%;
+        margin-top: 10px;
+      }
+      button{
+        padding: 10px;
+        border-radius: 10px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        background-color: #ce059c4e;
+      }
+    }
     .time-component{
+      .back-handler{
+        position: absolute;
+        top: 10px;
+        left: 5px;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        outline: none;
+      }
+      .timer-text{
+        font-size: 30px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 100;
+        text-align: center;
+      }
       .timer-buttons{
         display: flex;
         flex-direction: row;
@@ -54,5 +90,11 @@
   .light {
     background-color: #fafafabc;
     color: #2d2d2d;
+  }
+  .disp{
+    display: block;
+  }
+  .Ndisp{
+    display: none !important;
   }
 }
