@@ -3,8 +3,58 @@
     .input-component{
       user-select: none;
       display: flex;
+      justify-content: space-between;
       flex-direction: column;
       height: 100%;
+      .custom-input{
+        margin-bottom: 30px;
+        button{
+          padding: 10px;
+          width: 100%;
+          margin-top: 10px;
+          outline: none;
+          border: none;
+          cursor: pointer;
+          background-color: rgb(148, 220, 39);
+        }
+        .time-container{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          span{
+            font-size: 24px;
+          }
+          div{
+            padding: 10px 20px;
+            font-size: 18px;
+            // border-top-right-radius: 10px;
+            // border-top-left-radius:10px ;
+            font-weight: 600;
+            cursor:text;
+            &:first-child{
+              border-top-left-radius: 10px;
+            }
+            &:last-child{
+              border-top-right-radius:10px ;
+            }
+          }
+          div.dark{
+            background-color: #0f0f0f84;
+            color: #fafafa;
+            border-bottom: 1px solid #fafafa;
+          }
+          div.light{
+            background-color: #fafafab3;
+            color: #525252;
+            border-bottom: 1px solid #0f0f0f;
+          }
+        }
+        p{
+          font-size: 12px;
+          margin: 5px 0px;
+          font-family: 'Poppins', sans-serif;
+        }
+      }
       .preset-buttons{
         display: grid;
         grid-template-columns: repeat(3, 1fr);

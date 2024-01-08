@@ -1,21 +1,22 @@
 .scenery{
+    overflow: hidden;
     .active{
       position: relative;
       background-color:#ff10ef85;
       padding: 2px;
-      left: -2px;
+      // left: -2px;
       top: -2px;
     }
     .inactive{
       position: relative;
       background-color:#ff10ef00;
       padding: 2px;
-      left: -2px;
+      // left: -2px;
       top: -2px;
     }
     .window-size {
         margin: auto;
-        width: 200px;
+        width: 212px;
         height: 500px;
         border-radius: 10px;
         padding: 10px;
@@ -29,6 +30,10 @@
         }
 
         .scenery-image{ 
+          overflow-y: scroll;
+          overflow-x: hidden;
+          padding-right: 20px;
+          height: 480px;
           margin-top: 2px;
           display: flex;
           flex-direction: column;
@@ -39,8 +44,8 @@
             cursor: pointer;
             .scenery-image-text{
               position: absolute;
-              bottom: 7.5px;
-              left: 0;
+              bottom: 8px;
+              left: 2px;
               font-size: 0.8rem;
               font-family: 'Poppins', sans-serif;
               font-weight: 100;
@@ -66,9 +71,50 @@
       .dark {
         background-color: #2d2d2deb;
         color: #fafafa;
+        ::-webkit-scrollbar {
+          width: 5px;
+        }
+        
+        /* Track */
+        ::-webkit-scrollbar-track {
+          background: #2d2d2d;
+          border-radius: 10px;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: #ffcbcb; /* light pink */
+          border-radius: 10px;
+        }
+        
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #ffcbcb;
+        }
       }
       .light {
         background-color: #fafafabc;
         color: #2d2d2d;
+        ::-webkit-scrollbar {
+          width: 5px;
+        }
+        
+        /* Track */
+        ::-webkit-scrollbar-track {
+          background: #afafaf;
+          border-radius: 10px;
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: #de46de; /* light pink */
+          border-radius: 10px;
+        }
+        
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: #b331b3;
+        }
       }
 }
+

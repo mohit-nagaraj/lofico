@@ -22,6 +22,8 @@ const Home = () => {
     '/inside-day',
     '/inside-night',
     '/space',
+    '/outside-day',
+    '/outside-night',
   ];
 
   //keep track of song information, used in slider(Player.js)

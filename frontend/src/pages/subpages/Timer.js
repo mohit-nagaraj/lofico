@@ -12,7 +12,27 @@ const Timer = ({ currentTheme, currentSong }) => {
     setIsPlaying(!isPlaying);
   };
   const [key, setKey] = useState(0);
-
+  const editContent = (e) => {
+    const nums = e.target.textContent.split("");
+    for (let i = 0; i < nums.length; i++) {
+      if (isNaN(nums[i])) {
+        nums[i] = "";
+        e.target.textContent = nums.join("");
+      }
+    }
+    if (e.target.textContent.length > 2) {
+      e.target.textContent = nums[2] + nums[0];
+    }
+  };
+  const simulateClick = (str) => {
+    document.querySelector(str).contentEditable = true;
+    document.querySelector(str).focus();
+  };
+  const buttonTimeClick = (time) =>{
+    setInputTime(time);
+                  setDisplayInput(!displayInput);
+                  setIsPlaying(!isPlaying);
+  }
   return (
     <div className="timer" style={{ display: "none" }}>
       <Draggable initialPos={{ x: 100, y: 100 }} className="window">
@@ -30,7 +50,13 @@ const Timer = ({ currentTheme, currentSong }) => {
               document.querySelector(".timer").style.display = "none";
             }}
           >
-            <img src="./close.png" alt="" height={15} width={15} />
+            <img
+              style={{ userSelect: "none" }}
+              src="./close.png"
+              alt=""
+              height={15}
+              width={15}
+            />
           </div>
           {/* Timer window to be implemented */}
           {!displayInput ? "" : "Timer"}
@@ -40,63 +66,79 @@ const Timer = ({ currentTheme, currentSong }) => {
             <div className="preset-buttons">
               <button
                 className={currentTheme}
-                onClick={(e) => {
-                  setInputTime(300);
-                  setDisplayInput(!displayInput);
-                  setIsPlaying(!isPlaying);
-                }}
+                onClick={(e) => buttonTimeClick(300)}
               >
-                5 mins
+                5<br></br>mins
               </button>
               <button
                 className={currentTheme}
-                onClick={(e) => {
-                  setInputTime(600);
-                  setDisplayInput(!displayInput);
-                  setIsPlaying(!isPlaying);
-                }}
+                onClick={(e) => buttonTimeClick(600)}
               >
-                10 mins
+                10<br></br>mins
               </button>
               <button
                 className={currentTheme}
-                onClick={(e) => {
-                  setInputTime(900);
-                  setDisplayInput(!displayInput);
-                  setIsPlaying(!isPlaying);
-                }}
+                onClick={(e) => buttonTimeClick(900)}
               >
-                15 mins
+                15<br></br>mins
               </button>
               <button
                 className={currentTheme}
-                onClick={(e) => {
-                  setInputTime(1800);
-                  setDisplayInput(!displayInput);
-                  setIsPlaying(!isPlaying);
-                }}
+                onClick={(e) => buttonTimeClick(1800)}
               >
-                30 mins
+                30<br></br>mins
               </button>
               <button
                 className={currentTheme}
-                onClick={(e) => {
-                  setInputTime(3600);
-                  setDisplayInput(!displayInput);
-                  setIsPlaying(!isPlaying);
-                }}
+                onClick={(e) => buttonTimeClick(3600)}
               >
-                1 hour
+                1<br></br>hour
               </button>
               <button
                 className={currentTheme}
-                onClick={(e) => {
-                  setInputTime(10800);
+                onClick={(e) => buttonTimeClick(10800)}
+              >
+                3<br></br>hours
+              </button>
+            </div>
+            <div className="custom-input">
+              <p>Set custom time:</p>
+              <div className="time-container">
+                <div
+                  className={"hour " + currentTheme}
+                  onInput={(e) => editContent(e)}
+                  onClick={() => simulateClick(".hour")}
+                >
+                  00
+                </div>
+                <span>:</span>
+                <div
+                  className={"minute " + currentTheme}
+                  onInput={(e) => editContent(e)}
+                  onClick={() => simulateClick(".minute")}
+                >
+                  00
+                </div>
+                <span>:</span>
+                <div
+                  className={"second " + currentTheme}
+                  onInput={(e) => editContent(e)}
+                  onClick={() => simulateClick(".second")}
+                >
+                  00
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  const hour = document.querySelector(".hour").textContent;
+                  const minute = document.querySelector(".minute").textContent;
+                  const second = document.querySelector(".second").textContent;
+                  setInputTime(hour * 3600 + minute * 60 + second * 1);
                   setDisplayInput(!displayInput);
                   setIsPlaying(!isPlaying);
                 }}
               >
-                3 hours
+                START
               </button>
             </div>
           </div>
@@ -201,7 +243,10 @@ const Timer = ({ currentTheme, currentSong }) => {
                 return (
                   <div className="timer-text">
                     {hours !== 0 ? strhours + ":" : ""}
-                    {minutes !== 0 || (remainingTime>=60&&remainingTime%60===0) ? strminutes + ":" : ""}
+                    {minutes !== 0 ||
+                    (remainingTime >= 60 && remainingTime % 60 === 0)
+                      ? strminutes + ":"
+                      : ""}
                     {strseconds}
                   </div>
                 );
@@ -222,7 +267,8 @@ const Timer = ({ currentTheme, currentSong }) => {
                   >
                     <path
                       style={{
-                        fill: currentTheme !== "dark" ? "#fafafadd" : "#000000dd  ",
+                        fill:
+                          currentTheme !== "dark" ? "#fafafadd" : "#000000dd  ",
                       }}
                       d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"
                     />
@@ -236,7 +282,8 @@ const Timer = ({ currentTheme, currentSong }) => {
                   >
                     <path
                       style={{
-                        fill: currentTheme !== "dark" ? "#fafafadd" : "#000000dd",
+                        fill:
+                          currentTheme !== "dark" ? "#fafafadd" : "#000000dd",
                       }}
                       d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
                     />
@@ -257,7 +304,8 @@ const Timer = ({ currentTheme, currentSong }) => {
                   <path
                     d="M5 13C5 16.866 8.13401 20 12 20C15.866 20 19 16.866 19 13C19 9.13401 15.866 6 12 6H7M7 6L10 3M7 6L10 9"
                     style={{
-                      stroke: currentTheme !== "dark" ? "#fafafadd" : "#000000dd",
+                      stroke:
+                        currentTheme !== "dark" ? "#fafafadd" : "#000000dd",
                     }}
                     stroke-width="3"
                     stroke-linecap="round"
