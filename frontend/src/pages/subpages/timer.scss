@@ -72,6 +72,15 @@
       }
     }
     .time-component{
+      .bell-handler{
+        position: absolute;
+        top: 10px;
+        left: 35px;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        outline: none;
+      }
       .back-handler{
         position: absolute;
         top: 10px;

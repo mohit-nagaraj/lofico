@@ -13,6 +13,7 @@ const Notes = ({currentTheme}) => {
           <img src="./close.png" alt='' height={15} width={15}/>
         </div>
           Notes window to be implemented
+          
         </div>
       </Draggable>
     </div>
