@@ -1,6 +1,5 @@
 
-function chillHop() {
-  return [
+export const playlistData = [
     {
       name: "Oasis",
       cover:
@@ -183,6 +182,3 @@ function chillHop() {
 
     //ADD MORE HERE
   ];
-}
-
-export default chillHop;

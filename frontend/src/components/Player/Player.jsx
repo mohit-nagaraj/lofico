@@ -1,7 +1,6 @@
-import React from "react";
+import { useSelector } from "react-redux";
 import "./player.scss";
 const Player = ({
-  currentTheme,
   currentSong,
   setCurrentSong,
   setIsPlaying,
@@ -12,6 +11,7 @@ const Player = ({
   songs,
   setSongInfo,
 }) => {
+  const userSettings = useSelector((state) => state.user);
   //for controlling play/pause button
   const playSongHandler = () => {
     if (isPlaying) {
@@ -63,24 +63,24 @@ const Player = ({
     transform: `translateX(${songInfo.animationPercentage}%)`,
   };
 
-  
+
   return (
     <div
       className="player"
       style={
-        currentTheme === "dark" ? { background: "rgba(0, 0, 0, 0.207)" } : {}
+        userSettings.theme === "dark" ? { background: "rgba(0, 0, 0, 0.207)" } : {}
       }
     >
       <div className="song-info">
-        <img src={currentSong.cover} alt="song-img"/>
+        <img src={currentSong.cover} alt="song-img" />
         <div className="info">
-          <div className={"song-name "+ currentTheme}>{currentSong.name}</div>
-          <div className={"song-artist "+ currentTheme}>By {currentSong.artist}</div>
+          <div className={"song-name " + userSettings.theme}>{currentSong.name}</div>
+          <div className={"song-artist " + userSettings.theme}>By {currentSong.artist}</div>
         </div>
       </div>
       <div className="time-control">
-        <p className={currentTheme} style={{ userSelect: "none" }}>
-        {getTime(songInfo.currentTime)}
+        <p className={userSettings.theme} style={{ userSelect: "none" }}>
+          {getTime(songInfo.currentTime)}
         </p>
         <div
           style={{
@@ -92,21 +92,21 @@ const Player = ({
             value={songInfo.currentTime} onChange={dragHandler} type="range" />
           <div className="animate-track" style={trackAnim}></div>
         </div>
-        <p className={currentTheme} style={{ userSelect: "none" }}>
+        <p className={userSettings.theme} style={{ userSelect: "none" }}>
           {songInfo.duration ? getTime(songInfo.duration) : "0:00"}
         </p>
       </div>
       <div className="play-control">
         <div onClick={() => skipTrackHandler("skip-back")}>
-        <svg
-          className={currentTheme}
-          xmlns="http://www.w3.org/2000/svg"
-          height="24"
-          width="24"
-          viewBox="0 0 512 512"
-        >
-          <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z" />
-        </svg>
+          <svg
+            className={userSettings.theme}
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            width="24"
+            viewBox="0 0 512 512"
+          >
+            <path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160zm352-160l-160 160c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L301.3 256 438.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0z" />
+          </svg>
         </div>
         <div
           onClick={() => {
@@ -116,7 +116,7 @@ const Player = ({
         >
           {isPlaying ? (
             <svg
-              className={currentTheme}
+              className={userSettings.theme}
               xmlns="http://www.w3.org/2000/svg"
               height="24"
               width="24"
@@ -126,7 +126,7 @@ const Player = ({
             </svg>
           ) : (
             <svg
-              className={currentTheme}
+              className={userSettings.theme}
               xmlns="http://www.w3.org/2000/svg"
               height="24"
               width="24"
@@ -137,15 +137,15 @@ const Player = ({
           )}
         </div>
         <div onClick={() => skipTrackHandler("skip-forward")}>
-        <svg
-          className={currentTheme}
-          xmlns="http://www.w3.org/2000/svg"
-          height="24"
-          width="24"
-          viewBox="0 0 512 512"
-        >
-          <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z" />
-        </svg>
+          <svg
+            className={userSettings.theme}
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            width="24"
+            viewBox="0 0 512 512"
+          >
+            <path d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z" />
+          </svg>
         </div>
       </div>
     </div>

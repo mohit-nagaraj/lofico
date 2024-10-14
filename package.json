@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "lucide": "^0.452.0",
+    "react-countdown-circle-timer": "^3.2.1"
+  }
+}

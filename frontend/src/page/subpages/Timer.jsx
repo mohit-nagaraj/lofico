@@ -1,9 +1,15 @@
-import React, { useState,useRef } from "react";
+import { useState, useRef } from "react";
 import Draggable from "../../components/Draggable/Draggable";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import "./timer.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { setPagesOpen } from "../../store/user";
 
-const Timer = ({ currentTheme, currentSong }) => {
+const Timer = ({ currentSong }) => {
+  const dispatch = useDispatch();
+
+  const userSettings = useSelector((state) => state.user);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentColor, setCurrentColor] = useState(currentSong.color[0]);
   const [inputTime, setInputTime] = useState(30);
@@ -31,15 +37,15 @@ const Timer = ({ currentTheme, currentSong }) => {
     document.querySelector(str).contentEditable = true;
     document.querySelector(str).focus();
   };
-  const buttonTimeClick = (time) =>{
+  const buttonTimeClick = (time) => {
     setInputTime(time);
-                  setDisplayInput(!displayInput);
-                  setIsPlaying(!isPlaying);
+    setDisplayInput(!displayInput);
+    setIsPlaying(!isPlaying);
   }
-  return (
-    <div className="timer" style={{ display: "none" }}>
-      <Draggable initialPos={{ x: 100, y: 100 }} className="window">
-        <div className={"window-size " + currentTheme}>
+  return (userSettings.pagesOpen.timer.display ?
+    <div className="timer">
+      <Draggable initialPos={userSettings.pagesOpen.timer.position} className="window">
+        <div className={"window-size " + userSettings.theme}>
           <div
             style={{
               position: "absolute",
@@ -49,8 +55,16 @@ const Timer = ({ currentTheme, currentSong }) => {
               cursor: "pointer",
               userSelect: "none",
             }}
-            onClick={(e) => {
-              document.querySelector(".timer").style.display = "none";
+            onClick={() => {
+              dispatch(
+                setPagesOpen({
+                  page: "timer",
+                  value: {
+                    display: false,
+                    position: userSettings.pagesOpen.timer.position,
+                  },
+                })
+              );
             }}
           >
             <img
@@ -68,38 +82,38 @@ const Timer = ({ currentTheme, currentSong }) => {
           >
             <div className="preset-buttons">
               <button
-                className={currentTheme}
-                onClick={(e) => buttonTimeClick(300)}
+                className={userSettings.theme}
+                onClick={() => buttonTimeClick(300)}
               >
                 5<br></br>mins
               </button>
               <button
-                className={currentTheme}
-                onClick={(e) => buttonTimeClick(600)}
+                className={userSettings.theme}
+                onClick={() => buttonTimeClick(600)}
               >
                 10<br></br>mins
               </button>
               <button
-                className={currentTheme}
-                onClick={(e) => buttonTimeClick(900)}
+                className={userSettings.theme}
+                onClick={() => buttonTimeClick(900)}
               >
                 15<br></br>mins
               </button>
               <button
-                className={currentTheme}
-                onClick={(e) => buttonTimeClick(1800)}
+                className={userSettings.theme}
+                onClick={() => buttonTimeClick(1800)}
               >
                 30<br></br>mins
               </button>
               <button
-                className={currentTheme}
-                onClick={(e) => buttonTimeClick(3600)}
+                className={userSettings.theme}
+                onClick={() => buttonTimeClick(3600)}
               >
                 1<br></br>hour
               </button>
               <button
-                className={currentTheme}
-                onClick={(e) => buttonTimeClick(10800)}
+                className={userSettings.theme}
+                onClick={() => buttonTimeClick(10800)}
               >
                 3<br></br>hours
               </button>
@@ -108,7 +122,7 @@ const Timer = ({ currentTheme, currentSong }) => {
               <p>Set custom time:</p>
               <div className="time-container">
                 <div
-                  className={"hour " + currentTheme}
+                  className={"hour " + userSettings.theme}
                   onInput={(e) => editContent(e)}
                   onClick={() => simulateClick(".hour")}
                 >
@@ -116,7 +130,7 @@ const Timer = ({ currentTheme, currentSong }) => {
                 </div>
                 <span>:</span>
                 <div
-                  className={"minute " + currentTheme}
+                  className={"minute " + userSettings.theme}
                   onInput={(e) => editContent(e)}
                   onClick={() => simulateClick(".minute")}
                 >
@@ -124,7 +138,7 @@ const Timer = ({ currentTheme, currentSong }) => {
                 </div>
                 <span>:</span>
                 <div
-                  className={"second " + currentTheme}
+                  className={"second " + userSettings.theme}
                   onInput={(e) => editContent(e)}
                   onClick={() => simulateClick(".second")}
                 >
@@ -149,13 +163,13 @@ const Timer = ({ currentTheme, currentSong }) => {
             className={"time-component " + (!displayInput ? "disp" : "Ndisp")}
           >
             <audio src={alarmSrc} id="alarm" ref={audioRef}></audio>
-            <button className={"bell-handler "+ currentTheme} onClick={()=>setIsMuted(!isMuted)}>{isMuted?<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path style={{stroke: currentTheme === "dark" ? "#fafafa" : "#000000"}} d="M3 3L21 21M9.37747 3.56325C10.1871 3.19604 11.0827 3 12 3C13.5913 3 15.1174 3.59 16.2426 4.6402C17.3679 5.69041 18 7.11479 18 8.6C18 10.3566 18.2892 11.7759 18.712 12.9122M17 17H15M6.45339 6.46451C6.15686 7.13542 6 7.86016 6 8.6C6 11.2862 5.3238 13.1835 4.52745 14.4866C3.75616 15.7486 3.37051 16.3797 3.38485 16.5436C3.40095 16.7277 3.43729 16.7925 3.58603 16.9023C3.71841 17 4.34762 17 5.60605 17H9M9 17V18C9 19.6569 10.3431 21 12 21C13.6569 21 15 19.6569 15 18V17M9 17H15" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>:<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path style={{stroke: currentTheme === "dark" ? "#fafafa" : "#000000"}} d="M9.00195 17H5.60636C4.34793 17 3.71872 17 3.58633 16.9023C3.4376 16.7925 3.40126 16.7277 3.38515 16.5436C3.37082 16.3797 3.75646 15.7486 4.52776 14.4866C5.32411 13.1835 6.00031 11.2862 6.00031 8.6C6.00031 7.11479 6.63245 5.69041 7.75766 4.6402C8.88288 3.59 10.409 3 12.0003 3C13.5916 3 15.1177 3.59 16.2429 4.6402C17.3682 5.69041 18.0003 7.11479 18.0003 8.6C18.0003 11.2862 18.6765 13.1835 19.4729 14.4866C20.2441 15.7486 20.6298 16.3797 20.6155 16.5436C20.5994 16.7277 20.563 16.7925 20.4143 16.9023C20.2819 17 19.6527 17 18.3943 17H15.0003M9.00195 17L9.00031 18C9.00031 19.6569 10.3435 21 12.0003 21C13.6572 21 15.0003 19.6569 15.0003 18V17M9.00195 17H15.0003" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>}</button>
+            <button className={"bell-handler " + userSettings.theme} onClick={() => setIsMuted(!isMuted)}>{isMuted ? <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path style={{ stroke: userSettings.theme === "dark" ? "#fafafa" : "#000000" }} d="M3 3L21 21M9.37747 3.56325C10.1871 3.19604 11.0827 3 12 3C13.5913 3 15.1174 3.59 16.2426 4.6402C17.3679 5.69041 18 7.11479 18 8.6C18 10.3566 18.2892 11.7759 18.712 12.9122M17 17H15M6.45339 6.46451C6.15686 7.13542 6 7.86016 6 8.6C6 11.2862 5.3238 13.1835 4.52745 14.4866C3.75616 15.7486 3.37051 16.3797 3.38485 16.5436C3.40095 16.7277 3.43729 16.7925 3.58603 16.9023C3.71841 17 4.34762 17 5.60605 17H9M9 17V18C9 19.6569 10.3431 21 12 21C13.6569 21 15 19.6569 15 18V17M9 17H15" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg> : <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path style={{ stroke: userSettings.theme === "dark" ? "#fafafa" : "#000000" }} d="M9.00195 17H5.60636C4.34793 17 3.71872 17 3.58633 16.9023C3.4376 16.7925 3.40126 16.7277 3.38515 16.5436C3.37082 16.3797 3.75646 15.7486 4.52776 14.4866C5.32411 13.1835 6.00031 11.2862 6.00031 8.6C6.00031 7.11479 6.63245 5.69041 7.75766 4.6402C8.88288 3.59 10.409 3 12.0003 3C13.5916 3 15.1177 3.59 16.2429 4.6402C17.3682 5.69041 18.0003 7.11479 18.0003 8.6C18.0003 11.2862 18.6765 13.1835 19.4729 14.4866C20.2441 15.7486 20.6298 16.3797 20.6155 16.5436C20.5994 16.7277 20.563 16.7925 20.4143 16.9023C20.2819 17 19.6527 17 18.3943 17H15.0003M9.00195 17L9.00031 18C9.00031 19.6569 10.3435 21 12.0003 21C13.6572 21 15.0003 19.6569 15.0003 18V17M9.00195 17H15.0003" stroke="#000000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>}</button>
             <button
-              className={"back-handler " + currentTheme}
+              className={"back-handler " + userSettings.theme}
               onClick={(e) => {
                 setDisplayInput(!displayInput);
                 setIsPlaying(!isPlaying);
@@ -180,12 +194,12 @@ const Timer = ({ currentTheme, currentSong }) => {
                       r="246"
                       style={{
                         fill: "none",
-                        stroke: currentTheme === "dark" ? "#fafafa" : "#000000",
+                        stroke: userSettings.theme === "dark" ? "#fafafa" : "#000000",
                         strokeLinecap: "round",
                         strokeLinejoin: "round",
                         strokeWidth: "35px",
                       }}
-                      
+
                     />
 
                     <line
@@ -196,7 +210,7 @@ const Timer = ({ currentTheme, currentSong }) => {
                       y2="256"
                       style={{
                         fill: "none",
-                        stroke: currentTheme === "dark" ? "#fafafa" : "#000000",
+                        stroke: userSettings.theme === "dark" ? "#fafafa" : "#000000",
                         strokeLinecap: "round",
                         strokeLinejoin: "round",
                         strokeWidth: "35px",
@@ -207,7 +221,7 @@ const Timer = ({ currentTheme, currentSong }) => {
                       className="cls-1"
                       style={{
                         fill: "none",
-                        stroke: currentTheme === "dark" ? "#fafafa" : "#000000",
+                        stroke: userSettings.theme === "dark" ? "#fafafa" : "#000000",
                         strokeLinecap: "round",
                         strokeLinejoin: "round",
                         strokeWidth: "35px",
@@ -222,7 +236,7 @@ const Timer = ({ currentTheme, currentSong }) => {
               isPlaying={isPlaying}
               key={key}
               onComplete={() => {
-                if(!isMuted){
+                if (!isMuted) {
                   audioRef.current.play();
                 }
               }}
@@ -230,7 +244,7 @@ const Timer = ({ currentTheme, currentSong }) => {
               rotation="counterclockwise"
               colors={currentSong.color}
               colorsTime={[inputTime, 0]}
-              trailColor={currentTheme !== "dark" ? "#515151" : "#fafafabc"}
+              trailColor={userSettings.theme !== "dark" ? "#515151" : "#fafafabc"}
             >
               {({ remainingTime, color }) => {
                 setCurrentColor(color);
@@ -259,7 +273,7 @@ const Timer = ({ currentTheme, currentSong }) => {
                   <div className="timer-text">
                     {hours !== 0 ? strhours + ":" : ""}
                     {minutes !== 0 ||
-                    (remainingTime >= 60 && remainingTime % 60 === 0)
+                      (remainingTime >= 60 && remainingTime % 60 === 0)
                       ? strminutes + ":"
                       : ""}
                     {strseconds}
@@ -283,7 +297,7 @@ const Timer = ({ currentTheme, currentSong }) => {
                     <path
                       style={{
                         fill:
-                          currentTheme !== "dark" ? "#fafafadd" : "#000000dd  ",
+                          userSettings.theme !== "dark" ? "#fafafadd" : "#000000dd  ",
                       }}
                       d="M48 64C21.5 64 0 85.5 0 112V400c0 26.5 21.5 48 48 48H80c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H48zm192 0c-26.5 0-48 21.5-48 48V400c0 26.5 21.5 48 48 48h32c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48H240z"
                     />
@@ -298,7 +312,7 @@ const Timer = ({ currentTheme, currentSong }) => {
                     <path
                       style={{
                         fill:
-                          currentTheme !== "dark" ? "#fafafadd" : "#000000dd",
+                          userSettings.theme !== "dark" ? "#fafafadd" : "#000000dd",
                       }}
                       d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"
                     />
@@ -320,11 +334,11 @@ const Timer = ({ currentTheme, currentSong }) => {
                     d="M5 13C5 16.866 8.13401 20 12 20C15.866 20 19 16.866 19 13C19 9.13401 15.866 6 12 6H7M7 6L10 3M7 6L10 9"
                     style={{
                       stroke:
-                        currentTheme !== "dark" ? "#fafafadd" : "#000000dd",
+                        userSettings.theme !== "dark" ? "#fafafadd" : "#000000dd",
                     }}
-                    stroke-width="3"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </button>
@@ -332,7 +346,7 @@ const Timer = ({ currentTheme, currentSong }) => {
           </div>
         </div>
       </Draggable>
-    </div>
+    </div> : null
   );
 };
 
