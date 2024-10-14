@@ -1,16 +1,16 @@
 import { useSelector } from "react-redux";
 import "./player.scss";
+import { useState } from "react";
 const Player = ({
   currentSong,
   setCurrentSong,
-  setIsPlaying,
-  isPlaying,
   audioRef,
   songInfo,
   setSongs,
   songs,
   setSongInfo,
 }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
   const userSettings = useSelector((state) => state.user);
   //for controlling play/pause button
   const playSongHandler = () => {

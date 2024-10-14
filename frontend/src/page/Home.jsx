@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 const Home = () => {
     const [songs, setSongs] = useState(playlistData);
     const [currentSong, setCurrentSong] = useState(songs[0]);
-    const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef(null);
 
     const currentScenery = useSelector((state) => state.user.currentScenery)
@@ -64,8 +63,6 @@ const Home = () => {
             <Calendar />
             <Player
                 audioRef={audioRef}
-                isPlaying={isPlaying}
-                setIsPlaying={setIsPlaying}
                 currentSong={currentSong}
                 setCurrentSong={setCurrentSong}
                 songs={songs}

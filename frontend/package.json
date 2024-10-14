@@ -8,8 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "preview": "vite preview",
-    "prepare": "husky"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.8",
@@ -20,7 +19,9 @@
     "react-router-dom": "^6.27.0",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^3.1.0"
+    "redux-thunk": "^3.1.0",
+    "lucide": "^0.452.0",
+    "react-countdown-circle-timer": "^3.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
