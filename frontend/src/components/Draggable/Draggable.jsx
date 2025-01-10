@@ -1,50 +1,16 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 const Draggable = ({ initialPos, children }) => {
+  const dispatch = useDispatch();
   const [pos, setPos] = useState(initialPos);
   const [dragging, setDragging] = useState(false);
-  const [rel, setRel] = useState(null);
+  const [rel, setRel] = useState({ x: 0, y: 0 });
   const ref = useRef(null);
 
-  /** Using useEffect to manage event listeners can be advantageous for more complex scenarios where you need to handle multiple events or perform additional logic when events occur. */
-  useEffect(() => {
-    /** When the dragging state changes, the useEffect hook runs again. If dragging is true, it adds event listeners for mousemove and mouseup events. If dragging is false, it removes these event listeners. */
-    const onMouseMove = (e) => {
-      if (!dragging) return;
-      setPos({
-        x: e.pageX - rel.x,
-        y: e.pageY - rel.y,
-      });
-      e.stopPropagation();
-      e.preventDefault();
-    };
-
-    const onMouseUp = (e) => {
-      setDragging(false);
-      e.stopPropagation();
-      e.preventDefault();
-    };
-
-    if (dragging) {
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
-    } else {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    }
-    /** returns a cleanup function that removes the event listeners when the component unmounts or when dragging changes to false. */
-    return () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-  }, [dragging, rel]);
-
   const onMouseDown = (e) => {
-    // Only handle left mouse button
-    if (e.button !== 0) return;
-    const node = ref.current;
-    if (!node) return;
-    const { left, top } = node.getBoundingClientRect();
+
+    const { left, top } = ref.current.getBoundingClientRect();
     setDragging(true);
     setRel({
       x: e.pageX - left,
@@ -54,14 +20,37 @@ const Draggable = ({ initialPos, children }) => {
     e.preventDefault();
   };
 
+  const onMouseMove = (e) => {
+    if (!dragging) return;
+
+    setPos({
+      x: e.pageX - rel.x,
+      y: e.pageY - rel.y,
+    });
+
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
+  const onMouseUp = (e) => {
+    if (dragging) {
+      setDragging(false);
+      e.stopPropagation();
+      e.preventDefault();
+    }
+  };
+
   return (
     <div
       ref={ref}
       onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
       style={{
         position: 'absolute',
         left: `${pos.x}px`,
         top: `${pos.y}px`,
+        cursor: dragging ? 'grabbing' : 'default', // Add a visual cue for dragging
       }}
     >
       {children}
