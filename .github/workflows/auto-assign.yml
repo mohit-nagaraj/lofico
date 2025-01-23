@@ -4,6 +4,10 @@ on:
   issue_comment:
     types: [created]
 
+permissions:
+  issues: write
+  contents: read
+
 jobs:
   auto-assign:
     runs-on: ubuntu-latest
@@ -26,8 +30,6 @@ jobs:
             }
 
             return { assignUser: null };
-
-          result-encoding: json
 
       - name: Assign the user
         if: steps.check_first_comment.outputs.assignUser != null
