@@ -21,7 +21,7 @@ const songSchema = new Schema(
       required: true,
     },
     color: {
-      type: [String], 
+      type: [String],
       required: true,
     },
     likes: {
@@ -31,7 +31,7 @@ const songSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const Song = model("Song", songSchema);

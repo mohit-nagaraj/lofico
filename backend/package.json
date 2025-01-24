@@ -7,7 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "author": "",
   "license": "ISC",
@@ -24,8 +26,11 @@
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.2.3",
     "globals": "^15.14.0",
+    "prettier": "^3.4.2",
     "typescript-eslint": "^8.21.0"
   }
 }

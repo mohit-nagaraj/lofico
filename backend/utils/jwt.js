@@ -1,21 +1,21 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 export const createToken = (_id) => {
-    const jwtkey = process.env.JWT_SECRET;
-    return jwt.sign({ _id }, jwtkey, { expiresIn: '1d' });
-}
+  const jwtkey = process.env.JWT_SECRET;
+  return jwt.sign({ _id }, jwtkey, { expiresIn: "1d" });
+};
 
-export const authenticateToken = (req, res, next) => {  
-    const jwtkey = process.env.JWT_SECRET;
-    
-    const authHeader = req.headers['authorization'];  
-    const token = authHeader && authHeader.split(' ')[1];
+export const authenticateToken = (req, res, next) => {
+  const jwtkey = process.env.JWT_SECRET;
 
-    if (!token) return res.sendStatus(401); 
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
 
-    jwt.verify(token, jwtkey, (err, user) => {  
-        if (err) return res.sendStatus(403);
-        req.user = user;
-        next();
-    });  
-}  
+  if (!token) return res.sendStatus(401);
+
+  jwt.verify(token, jwtkey, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
