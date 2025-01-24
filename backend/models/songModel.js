@@ -1,3 +1,5 @@
+import { model, Schema } from "mongoose";
+
 const songSchema = new Schema(
   {
     name: {
