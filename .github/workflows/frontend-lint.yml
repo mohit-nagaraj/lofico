@@ -33,6 +33,5 @@ jobs:
     
     - name: Run Stylelint
       run: |
-      cd frontend
-      npx stylelint "**/*.{css,scss}"
-
+        cd frontend
+        npx stylelint "**/*.{css,scss}"
