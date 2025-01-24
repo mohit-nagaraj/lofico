@@ -6,7 +6,7 @@ const Player = ({
   setCurrentSong,
   audioRef,
   songInfo,
-  setSongs,
+  // setSongs,
   songs,
   setSongInfo,
 }) => {
