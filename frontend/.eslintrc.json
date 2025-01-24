@@ -1,0 +1,31 @@
+{
+    "root": true,
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react/jsx-runtime",
+      "plugin:react-hooks/recommended"
+    ],
+    "plugins": [
+      "react",
+      "react-hooks",
+      "react-refresh"
+    ],
+    "rules": {
+      "react/prop-types": "off",
+      "react-refresh/only-export-components": [
+        "warn",
+        { "allowConstantExport": true }
+      ],
+      "react/jsx-no-target-blank": "off"
+    },
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }
+  }

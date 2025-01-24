@@ -78,7 +78,7 @@ const Timer = ({ currentSong }) => {
           {/* Timer window to be implemented */}
           {!displayInput ? "" : "Timer"}
           <div
-            className={"input-component " + (displayInput ? "disp" : "Ndisp")}
+            className={"input-component " + (displayInput ? "disp" : "ndisp")}
           >
             <div className="preset-buttons">
               <button
@@ -160,7 +160,7 @@ const Timer = ({ currentSong }) => {
             </div>
           </div>
           <div
-            className={"time-component " + (!displayInput ? "disp" : "Ndisp")}
+            className={"time-component " + (!displayInput ? "disp" : "ndisp")}
           >
             <audio src={alarmSrc} id="alarm" ref={audioRef}></audio>
             <button className={"bell-handler " + userSettings.theme} onClick={() => setIsMuted(!isMuted)}>{isMuted ? <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -170,7 +170,7 @@ const Timer = ({ currentSong }) => {
             </svg>}</button>
             <button
               className={"back-handler " + userSettings.theme}
-              onClick={(e) => {
+              onClick={() => {
                 setDisplayInput(!displayInput);
                 setIsPlaying(!isPlaying);
                 setKey((prevKey) => prevKey + 1);

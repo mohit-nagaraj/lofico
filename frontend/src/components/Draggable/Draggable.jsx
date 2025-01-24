@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 
 const Draggable = ({ initialPos, children }) => {
   
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const [pos, setPos] = useState(initialPos);
   const [dragging, setDragging] = useState(false);

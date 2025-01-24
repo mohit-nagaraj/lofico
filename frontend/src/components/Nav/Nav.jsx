@@ -18,12 +18,12 @@ const Nav = () => {
 
   return (
     <nav className="nav">
-      <div className="nav_container">
-        <div className="nav_container_logo">
+      <div className="nav-container">
+        <div className="nav-container-logo">
           <h1 className={userSettings.theme}>LofiCo</h1>
           <img src="./logo.png" alt="logo" />
         </div>
-        <div className="nav_container_links">
+        <div className="nav-container-links">
           <ul>
             <li
               onClick={() => {

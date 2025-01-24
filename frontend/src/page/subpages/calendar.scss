@@ -8,15 +8,18 @@
         backdrop-filter: blur(3px);
         border: none;
         outline: 1px solid #00000014;
+
         &:hover {
           outline: 1px solid #000000b3;
           border: none;
         }
       }
+
       .dark {
         background-color: #2d2d2deb;
         color: #fafafa;
       }
+
       .light {
         background-color: #fafafabc;
         color: #2d2d2d;
