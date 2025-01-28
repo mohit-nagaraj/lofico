@@ -1,7 +1,8 @@
 import validator from "validator";
 import bcrypt from "bcryptjs";
-import { User } from "../models/userModel";
-import { createToken } from "../utils/jwt";
+import { User } from "../models/userModel.js";
+import { createToken } from "../utils/jwt.js";
+
 
 export const createUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -34,6 +35,7 @@ export const createUser = async (req, res) => {
   }
 };
 
+
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -61,6 +63,7 @@ export const loginUser = async (req, res) => {
   }
 };
 
+
 export const findOneUser = async (req, res) => {
   const id = req.params.userId;
   try {
@@ -78,6 +81,7 @@ export const findOneUser = async (req, res) => {
   }
 };
 
+
 export const findAllUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -87,3 +91,47 @@ export const findAllUsers = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
+
+export const googleAuth = async(req, res) => {
+  try {
+
+    if (!req.user) {
+      return res.status(400).json({ message: "User authentication failed." });
+    }
+
+    const {name, email } = req.user;
+
+    let existingUser = await User.findOne({ email }).lean();
+  
+
+    if (!existingUser) {
+      existingUser = new User({
+        googleId, 
+        name,
+        email,
+      });
+
+      await existingUser.save();
+    }
+    const token = createToken(existingUser._id);
+
+    req.session.user = existingUser;
+
+    res.status(200).json({
+      id: existingUser._id,
+      name: existingUser.name,
+      email: existingUser.email,
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Server Failed"
+    });
+  }
+}
+
+
+
+
