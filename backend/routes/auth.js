@@ -1,7 +1,7 @@
 import express from "express";
 import passport from "../config/passport.js";
-import { googleAuth} from "../controllers/authcontroller.js"
-
+import { getProfile, googleAuth} from "../controllers/authcontroller.js"
+import { authenticateToken } from "../utils/jwt.js";
 const router = express.Router();
 
 router.get(
@@ -15,7 +15,7 @@ router.get(
   googleAuth 
 );
 
-
+router.get("/profile", authenticateToken, getProfile)
 
 
 export default router;

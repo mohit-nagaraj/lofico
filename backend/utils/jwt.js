@@ -15,11 +15,11 @@ export const authenticateToken = (req, res, next) => {
     return res.status(401).json({ error: "Unauthorized, token is missing" });
   }
 
-  jwt.verify(token, jwtkey, (err, user) => {
+  jwt.verify(token, jwtkey, (err, decoded) => {
     if (err) {
       return res.status(403).json({ error: "Forbidden, invalid token" });
     }
-    req.user = { id: decoded._id };
+    req.user = { id: decoded._id }; 
     next();
-  });
+  });  
 };
