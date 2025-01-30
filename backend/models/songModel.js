@@ -29,7 +29,7 @@ const songSchema = new Schema(
       default: 0,
     },
     theme: {
-      type: String,
+      type: [String],
       required: true,
       trim: true
     }
