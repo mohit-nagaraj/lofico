@@ -1,7 +1,8 @@
 import validator from "validator";
 import bcrypt from "bcryptjs";
-import { User } from "../models/userModel";
-import { createToken } from "../utils/jwt";
+import { User } from "../models/userModel.js";
+import { createToken } from "../utils/jwt.js";
+
 
 export const createUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -34,6 +35,7 @@ export const createUser = async (req, res) => {
   }
 };
 
+
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -61,6 +63,7 @@ export const loginUser = async (req, res) => {
   }
 };
 
+
 export const findOneUser = async (req, res) => {
   const id = req.params.userId;
   try {
@@ -78,6 +81,7 @@ export const findOneUser = async (req, res) => {
   }
 };
 
+
 export const findAllUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -87,3 +91,21 @@ export const findAllUsers = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
+
+export const getProfile = async(req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if(!user) {
+      return res.status(404).json({
+        message: "User not Found"
+      })
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({message: "Server Error"})
+  }
+}
+
+

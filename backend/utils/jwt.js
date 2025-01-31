@@ -11,11 +11,15 @@ export const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
-  if (!token) return res.sendStatus(401);
+  if (!token) {
+    return res.status(401).json({ error: "Unauthorized, token is missing" });
+  }
 
-  jwt.verify(token, jwtkey, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
+  jwt.verify(token, jwtkey, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ error: "Forbidden, invalid token" });
+    }
+    req.user = { id: decoded._id }; 
     next();
-  });
+  });  
 };

@@ -15,7 +15,7 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: false
     },
     likedSongs: [
       {
@@ -44,6 +44,12 @@ const userSchema = new Schema(
         default: "light",
       },
     },
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordExpires: {
+     type: Date,
+    }
   },
   {
     timestamps: true,
