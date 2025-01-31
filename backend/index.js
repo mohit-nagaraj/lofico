@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import userRouter from "./routes/userRoute";
+import userRouter from "./routes/userRoute.js";
+import songRouter from "./routes/song.js";
+import { connectDB } from "./db/connectDb.js";
 
 const app = express();
 dotenv.config();
@@ -15,7 +17,9 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/users", userRouter);
+app.use("/songs",songRouter);
 
 app.listen(port, () => {
+  connectDB();
   console.log(`Server running on http://localhost:${port}`);
 });
