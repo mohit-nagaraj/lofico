@@ -1,7 +1,7 @@
 import validator from "validator";
 import bcrypt from "bcryptjs";
-import { User } from "../models/userModel";
-import { createToken } from "../utils/jwt";
+import { User } from "../models/userModel.js";
+import { createToken } from "../utils/jwt.js";
 
 export const createUser = async (req, res) => {
   const { name, email, password } = req.body;

@@ -28,10 +28,17 @@ const songSchema = new Schema(
       type: Number,
       default: 0,
     },
+    theme: {
+      type: [String],
+      required: true,
+      trim: true
+    }
   },
   {
     timestamps: true,
   },
 );
+
+songSchema.index({ theme: 1 });
 
 export const Song = model("Song", songSchema);
