@@ -93,45 +93,6 @@ export const findAllUsers = async (req, res) => {
 };
 
 
-export const googleAuth = async(req, res) => {
-  try {
-
-    if (!req.user) {
-      return res.status(400).json({ message: "User authentication failed." });
-    }
-
-    const {name, email } = req.user;
-
-    let existingUser = await User.findOne({ email }).lean();
-  
-
-    if (!existingUser) {
-      existingUser = new User({
-        googleId, 
-        name,
-        email,
-      });
-
-      await existingUser.save();
-    }
-    const token = createToken(existingUser._id);
-
-    req.session.user = existingUser;
-
-    res.status(200).json({
-      id: existingUser._id,
-      name: existingUser.name,
-      email: existingUser.email,
-      token,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "Server Failed"
-    });
-  }
-}
-
 export const getProfile = async(req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
